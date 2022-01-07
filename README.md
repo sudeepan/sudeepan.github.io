@@ -1,1 +1,1 @@
-### Repository to build my own website.
+Repository for building my own website.
