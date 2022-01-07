@@ -6,485 +6,74 @@
         <title>My site</title>
     </head>
     <body>
-        <b>1. Goal </b>
-
-Our main goal in this article is to come to terms with the following odd-looking formula:
-<p align="center">$latex \displaystyle  \mu \circ (\gamma \otimes id_H) \circ \Delta=\eta \circ \epsilon= \mu \circ (id_H \otimes \gamma) \circ \Delta \ \ \ \ \ (1)&amp;fg=000000$</p>
- The meanings of the symbols shall be clear from the contexts we look at in the course of our flow through this article. They shall be defined appropriately in due course of time.
-The philosophy we adhere to is as follows: we keep theoretical concepts of mathematics at a minimum, so as not to deviate from our primary focus, namely getting to that formula. As such, formal definitions are kept as close as possible to where their explicit use has been made, so that the reader doesn't need to keep turning pages in search of definitions. Even if this hasn't always been possible, consistent references have nevertheless been made to these definitions wherever necessary in the midst of a series of logical steps.
-
-<b>2. Little prelims on tensor products </b>
-
-Here, we shall be discussing a bit about bilinear maps, and tensor products of vector spaces. Crucial for our discussion is to keep in mind the fact that the vector spaces can be over any (algebraically closed, with characteristic zero - more on these latter) field $latex {\mathbb{K}}&amp;fg=000000$, but the concept of tensor product depends on the field. For most of our purposes, we restrict $latex {\mathbb{K}}&amp;fg=000000$ to $latex {\mathbb{C}}&amp;fg=000000$.
-
-<b>Definition 2.1:</b> Let <span class="math inline">V<sub>1</sub></span>,<span class="math inline">V<sub>2</sub></span>,<span class="math inline">W</span> be vector spaces. A map <span class="math inline">β : V<sub>1</sub> × V<sub>2</sub> → W</span> is called bilinear, if <span class="math inline">∀ v<sub>1</sub> ∈ V<sub>1</sub></span> the map <span class="math inline">v<sub>2</sub> ↦ β(v<sub>1</sub>, v<sub>2</sub>)</span> is linear <span class="math inline">V<sub>2</sub> → W</span>, and <span class="math inline"> ∀ v<sub>2</sub> ∈ V<sub>2</sub></span> the map <span class="math inline">v<sub>1</sub> ↦ β(v<sub>1</sub>, v<sub>2</sub>)</span> is linear <span class="math inline">V<sub>1</sub> → W</span>.
-
-Multilinear maps can be defined similarly.
-
-The tensor product is a space that helps us replace some bilinear (more generally multilinear) maps by linear maps.
-
-<b>Definition 2.2:</b> Let \(V_1\) and \(V_2\) be two vector spaces. A tensor product of \(V_1\) and \(V_2\) (denoted by \(V_1 \otimes V_2\)) is a vector space U together with a bilinear map \(\phi: V_1 \times V_2 \rightarrow U\), such that the following <b>universal</b> property holds:
-for any bilinear map \(\beta:V_1 \times V_2 \rightarrow W\) $latex {\exists}&amp;fg=000000$ a <b>unique</b> linear map \(\Bar{\beta}:U \rightarrow W\), such that the following diagram is commutative, i.e. \(\beta = \Bar{\beta} \circ \phi\).
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=normal} V_1 \times V_2 \arrow[ddr, bend left=250, "\phi '",blue] \arrow{dr}{\phi} \arrow[rr,"\beta"] &amp; &amp; W\\ &amp; U \arrow[ur,dashrightarrow,"\Bar{\beta}"] \arrow[d,dashrightarrow,"\Bar{\phi '}",blue]&amp; \\ &amp; U' \arrow[u, bend right=100, "\Bar{\phi}",red] \end{tikzcd} &amp;fg=000000$</p>
- A little discussion on the uniqueness property (up to canonical isomorphism) of the bilinear map \(\phi\) naturally follows.
-Let's define, for sake of our argument, another possible tensor product \(U'\) with a bilinear map \(\phi ' :V_1 \times V_2 \rightarrow U'\). Then, the universality of \(U\) gives a linear map \(\Bar{\phi '}:U \rightarrow U'\) such that \(\phi '=\Bar{\phi '}\circ\phi\). These maps have been shown with blue arrows in the above commutative diagram. Similarly, the universality of \(U'\) gives a linear map \(\Bar{\phi}:U' \rightarrow U\) such that \(\phi=\Bar{\phi}\circ\phi '\). The map \(\Bar{\phi}\) has been shown in red.
-Thus we have the following: \begin{equation*} id_U \circ \phi=\phi=\Bar{\phi}\circ\phi '=\Bar{\phi}\circ\Bar{\phi '}\circ\phi \end{equation*} and, \begin{equation*} id_{U'}\circ\phi'=\phi'=\Bar{\phi'}\circ\phi=\Bar{\phi'}\circ\Bar{\phi}\circ\phi ' \end{equation*} We see that there are two ways to factorise the maps \(\phi\) and \(\phi '\). Thus, by the uniqueness requirement in the universality of these maps, we must have \(id_U=\Bar{\phi}\circ\Bar{\phi '}\), and \(id_{U'}=\Bar{\phi '}\circ\Bar{\phi}\). Hence, we conclude that \(\Bar{\phi}\) and \(\Bar{\phi '}\) are isomorphisms (and inverses of each other).
-<b>Caveat:</b> Note that usually when we talk about homomorphisms and isomorphisms, we assume the existence of structures like groups, rings etc which are sets endowed with some operation(s) between their constituent elements. In these contexts, the morphisms we talk about as existing between two such structures have to do with whether or not the relations defined in one of the structures have a natural correspondence with that in the other one (a bijective correspondence leads to isomorphism, in general it is a homomorphism). In such cases, we say something akin to "these structures are homo/iso-morphic to each other". However, to say that "two \underline{maps} themselves are isomorphic to each other", one essentially implies isomorphism in a <i>category</i> of maps. For an elucidated version of this point, see <a href="https://math.stackexchange.com/questions/51550/what-does-a-map-is-isomorphic-to-another-map-mean">this link</a>.
-So now that we know that the tensor product is unique (up to canonical isomorphism), we use the following notations: \begin{equation*} 	U = V_1 \otimes V_2 \end{equation*} and \begin{equation*} 	V_1 \times V_2 \ni (v_1,v_2) \xmapsto{\phi} v_1 \otimes v_2 \in V_1 \otimes V_2 \end{equation*}
-
-<b>3. Algebras, coalgebras, bialgebras and Hopf algebras </b>
-
-<b>  3.1. Algebras </b>
-
-\subsubsection{Definition - Form 1} Now let's study the most basic algebraic structure which shall be relevant for our understanding of Hopf algebras, and in particular, the formula we encountered at the very beginning.
-As per standard definition, an algebra (for us, it is an <i>associative</i>, <i>unital</i> algebra) is a triplet \((A,*,1_A)\), \(A\) being a vector space (over a field \(\mathbb{K}\); usually \(\mathbb{K}=\mathbb{C}\)), \(*\) is a binary operation on \(A\). \begin{equation*} 	*:A \times A \rightarrow A \qquad \qquad (a,b) \mapsto a*b \end{equation*} \(*\) is called the <b>product</b> or <i>multiplication</i>, and \(1_A\) is an element of A, the <b>unit</b> such that the following hold:
-\underline{Bilinearity}: the map \(*:A \times A \rightarrow A\) is bilinear
-\underline{Associativity}: \(a_1*(a_2*a_3)=(a_1*a_2)*a_3 \qquad \forall \quad a_1,a_2,a_3 \in A\)
-\underline{Unitality}: \(\forall \quad a \in A\) we have \(a*1_A=a=1_A*a\)
-From now on, unless stated otherwise, we shall take for granted \(ab:=a*b\). If \(ab=ba \quad \forall \quad a,b\in A\) we call it a <i>commutative</i> algebra. Also, we shall usually abbreviate the triplet \((A,*,1_A)\) representing an algebra with simply \(A\).
-The notions of left and right inverses are as usual, and an element of the algebra \(a \in A\) is said to be <b>invertible</b> if it has \underline{both} left and right inverses, in which case the two must be equal to each other, and we essentially talk of just <i>the</i> inverse in such a scenario. Just to show this, let \(a',a''\) be the left- and right-inverses of \(a\) respectively. Thus, \begin{equation*} 	a''=1_A*a''=(a'*a)*a''=a'*(a*a'')=a'*1_A=a' \end{equation*} and we denote by \(a^{-1}\) the (left \textit(and) right) inverse of a. \newpage \subsubsection{Definition - Form 2} Now this is where the novelty starts exhibiting itself.
-
-In the course of our calculations we shall at times encounter the following "tensor flip", so a heads-up is as follows: for \(V\) and \(W\) vector-spaces, let \(S_{V,W}\) denote the linear map that switches the components-
-<p align="center">$latex \displaystyle  	S_{V,W}:V\otimes W \rightarrow W\otimes V \ \ \ \ \ (2)&amp;fg=000000$</p>
- or equivalently,
-<p align="center">$latex \displaystyle  	S_{V,W}(v \otimes w)=w \otimes v \qquad \quad \forall \quad v\in V, w \in W \ \ \ \ \ (3)&amp;fg=000000$</p>
- Now here's the catch: owing to the bilinearity axiom for algebras, we can factorise the \underline{product} \(*\) through \(A \otimes A\), i.e \(\exists\) a linear map \(\mu:A \otimes A \rightarrow A\) such that
-<p align="center">$latex \displaystyle  	\mu(a \otimes b)=ab \qquad \forall \quad a,b \in A \ \ \ \ \ (4)&amp;fg=000000$</p>
- We can confirm this via the commutative diagram we drew earlier, which we draw again below, but with the suitable symbols for this context (for the bilinear map leading from \(A \times A\) to \(A \otimes A\) we leave the label \(\phi\) as it is):
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=normal} A \times A \arrow{dr}{\phi} \arrow{rr}{*} &amp; &amp; A\\ &amp; A \otimes A \arrow[ur,dashrightarrow,"\mu"] \end{tikzcd} &amp;fg=000000$</p>
- and, we represent the \underline{unit} via the linear map
-<p align="center">$latex \displaystyle  	\eta:\mathbb{C}\rightarrow A \qquad \lambda \mapsto \lambda 1_A \ \ \ \ \ (5)&amp;fg=000000$</p>
- Thus, the axioms of associativity and unitality then read <a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1"></a>
-
-<a name="H1">
-<p align="center">$latex \displaystyle {} 	\mu \circ (\mu \otimes id_A) = \mu \circ (id_A \otimes \mu) \ \ \ \ \ (6)&amp;fg=000000$</p>
-
-</a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a><a name="H1"></a> <a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2"></a>
-
-<a name="H2">
-<p align="center">$latex \displaystyle {} 	\mu \circ (\eta \otimes id_A) =id_A= \mu \circ (id_A \otimes \eta) \ \ \ \ \ (7)&amp;fg=000000$</p>
-
-</a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a><a name="H2"></a> To make sense of the above equations, we now give the following definition (as promised, this definition has been kept close to its explicit application, which we would look at a few moments later): \newpage <b>Definition 3.1:</b> When \(f: V_1 \rightarrow W_1\) and \(g: V_2 \rightarrow W_2\) are linear maps, then \(\exists\) a linear map \begin{equation*} 	(f \otimes g):V_1 \otimes V_2 \rightarrow W_1 \otimes W_2 \end{equation*} defined by the condition
-<p align="center">$latex \displaystyle  	(f \otimes g)(v_1 \otimes v_2)=f(v_1) \otimes g(v_2) \qquad \forall \quad v_1 \in V_1, v_2 \in V_2 \ \ \ \ \ (8)&amp;fg=000000$</p>
- In order to make sense of (<a href="#H1">6</a>) and (<a href="#H2">7</a>), we take 3 elements \(a,b,c \in A\). Let's proceed with (<a href="#H1">6</a>) first.
-On the LHS, we have a function composition of \(\mu\) with \(\mu \otimes id_A\). Remembering the fact that \(\mu\) acts on \(A \otimes A\), it can be deduced that the structure of the expression on which the LHS operates in terms of the generic elements \(a,b,c \in A\) is \((a \otimes b) \otimes c\) (which corresponds to the domain structure \((A \otimes A) \otimes A\)). Thus, as per Definition 3.1, we have: <a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3"></a>
-
-<a name="H3">
-<p align="center">$latex \displaystyle {} 	(\mu \otimes id_A)((a \otimes b) \otimes c) = (\mu(a \otimes b))\otimes id_A(c)=ab \otimes c \ \ \ \ \ (9)&amp;fg=000000$</p>
-
-</a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a><a name="H3"></a> and then, <a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4"></a>
-
-<a name="H4">
-<p align="center">$latex \displaystyle {} 	\mu(ab \otimes c) = abc \ \ \ \ \ (10)&amp;fg=000000$</p>
-
-</a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a><a name="H4"></a> On the RHS, from similar arguments as above (namely, the fact that \(\mu\)'s domain of operation is \(A \otimes A\)), we can deduce the operand structure as \(a \otimes (b \otimes c)\) (which corresponds to the domain structure \(A \otimes (A \otimes A)\)). Therefore, <a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5"></a>
-
-<a name="H5">
-<p align="center">$latex \displaystyle {} 	(id_A \otimes \mu)(a \otimes (b \otimes c)) = id_A(a) \otimes (\mu(b \otimes c))=a \otimes bc \ \ \ \ \ (11)&amp;fg=000000$</p>
-
-</a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a><a name="H5"></a> and then, <a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6"></a>
-
-<a name="H6">
-<p align="center">$latex \displaystyle {} 	\mu(a \otimes bc) = abc \ \ \ \ \ (12)&amp;fg=000000$</p>
-
-</a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a><a name="H6"></a> which agrees with the result of (<a href="#H4">10</a>).
-
-So this is how the associative rule is to be interpreted when we are talking in terms of map compositions and their tensor-products. As a further example, we shall do the same in order to ascertain unitality as given in (<a href="#H2">7</a>).
-Keeping in mind how the map \(\eta\) works, we have the operand structure for the LHS in (<a href="#H2">7</a>) as \(\lambda \otimes a\), where \(\lambda \in \mathbb{C},a \in A\), which thus corresponds to the domain structure \(\mathbb{C} \otimes A\). It gives us: <a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7"></a>
-
-<a name="H7">
-<p align="center">$latex \displaystyle {} 	(\eta \otimes id_A)(\lambda \otimes a)=\eta(\lambda)\otimes id_A(a)=\lambda 1_A \otimes a \ \ \ \ \ (13)&amp;fg=000000$</p>
-
-</a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a><a name="H7"></a> and similarly, we see that the operand structure for RHS ought to be \(a \otimes \lambda\), corresponding to the domain structure \(A \otimes \mathbb{C}\). Thus we get: <a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8"></a>
-
-<a name="H8">
-<p align="center">$latex \displaystyle {} 	(id_A \otimes \eta)(a \otimes \lambda)=id_A(a) \otimes \eta(\lambda)= a \otimes \lambda 1_A \ \ \ \ \ (14)&amp;fg=000000$</p>
-
-</a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a><a name="H8"></a> For the results of both (<a href="#H7">13</a>) and (<a href="#H8">14</a>) there's another \(\mu\) waiting to act on them, whence the former leads to \(\mu(\lambda 1_A \otimes a)=\lambda \mu(1_A \otimes a)=\lambda (1_A * a)=\lambda a\), and the latter to \(\mu(a \otimes \lambda 1_A)=\lambda \mu(a \otimes 1_A)=\lambda (a * 1_A)=\lambda a\). For the particular case \(\lambda=1\), we can discern the unitality property.
-
-Thus, (<a href="#H1">6</a>) expresses the equality of two maps \(A \otimes A \otimes A \rightarrow A\), when we make the usual identifications \begin{equation*} 	(A \otimes A) \otimes A \cong A \otimes A \otimes A \cong A \otimes (A \otimes A) \end{equation*} and (<a href="#H2">7</a>) expresses the equality of two maps \(A \rightarrow A\), when we make the usual identifications \begin{equation*} 	\mathbb{C} \otimes A \cong A \cong A \otimes \mathbb{C} \end{equation*}
-Thus, we have the following new defintion (equivalent to the previous "standard" definition) for an algebra:
-<b>Definition 3.2</b>: An (associative unital) algebra is a triplet \((A,\mu,\eta)\), where \(A\) is a vector space, and \begin{equation*} 	\mu:A \otimes A \rightarrow A \qquad \eta:\mathbb{C}\rightarrow A \end{equation*} are linear maps, such that \underline{associativity} (<a href="#H1">6</a>) and \underline{unitality} (<a href="#H2">7</a>) hold.
-
-We can express associativity and unitality through the following commutative diagrams:
-\underline{associativity} by
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=huge} &amp; A \otimes A \arrow{drr}{\mu} \\ A \otimes A \otimes A \arrow{ur}{\mu \otimes id_A} \arrow{dr}{id_A \otimes \mu} &amp; &amp; &amp; A\\ &amp; A \otimes A \arrow{urr}{\mu} \end{tikzcd} &amp;fg=000000$</p>
- and \underline{unitality} by
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=normal,column sep=normal} |[alias=Z1]|\mathbb{C}\otimes A \arrow[to=Z0,"\eta \otimes id_A"] &amp; \cong &amp; |[alias=Z2]|A &amp; \cong &amp; |[alias=Z3]|A \otimes \mathbb{C} \arrow[to=Z0,"id_A \otimes \eta"]\\\\ &amp; &amp; |[alias=Z0]| A \otimes A \arrow[to=Z2,"\mu"] \end{tikzcd} &amp;fg=000000$</p>
- <b>Example 3.1:</b> If \((A,\mu,\eta)\) is an algebra, then setting \(\mu^{op}=\mu \circ S_{A,A}\), i.e. \(\mu^{op}(a \otimes b)=ba\), one gets the \underline{opposite algebra} \(A^{op}=(A,\mu^{op},\eta)\). An algebra is called \underline{commutative} if \(\mu^{op}=\mu\).
-
-<b>  3.2. Coalgebras </b>
-
-A coalgebra \(C\) is defined by reversing all arrows in the commutative diagrams that define algebras.
-That is, we impose a condition of \underline{coassociativity}:
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=huge} &amp; C \otimes C \arrow{dl}{\Delta \otimes id_C} \\ C \otimes C \otimes C &amp; &amp; &amp; C \arrow{ull}{\Delta} \arrow{dll}{\Delta}\\ &amp; C \otimes C \arrow{ul}{id_C \otimes \Delta} \end{tikzcd} &amp;fg=000000$</p>
- and \underline{counitality}:
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=normal,column sep=normal} |[alias=Z1]|\mathbb{C}\otimes C \arrow[from=Z0,"\epsilon \otimes id_C"] &amp; \cong &amp; |[alias=Z2]|C &amp; \cong &amp; |[alias=Z3]|C \otimes \mathbb{C} \arrow[from=Z0,"id_C \otimes \epsilon"]\\\\ &amp; &amp; |[alias=Z0]| C \otimes C \arrow[from=Z2,"\Delta" left] \end{tikzcd} &amp;fg=000000$</p>
- These axioms can be written as: <a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1"></a>
-
-<a name="J1">
-<p align="center">$latex \displaystyle {} 	(\Delta \otimes id_C) \circ \Delta = (id_C \otimes \Delta) \circ \Delta \ \ \ \ \ (15)&amp;fg=000000$</p>
-
-</a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a><a name="J1"></a> <a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2"></a>
-
-<a name="J2">
-<p align="center">$latex \displaystyle {} 	(\epsilon \otimes id_C) \circ \Delta = id_C = (id_C \otimes \epsilon) \circ \Delta \ \ \ \ \ (16)&amp;fg=000000$</p>
-
-</a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a><a name="J2"></a> which must be understood as we did before in the case of algebras, going through an explicit demonstration.
-<b>Definition 3.3:</b> A \underline{coalgebra} is a triplet \((C,\Delta,\epsilon)\), where \(C\) is a vector space, and \begin{equation*} 	\Delta:C \rightarrow C \otimes C \qquad \epsilon:C \rightarrow \mathbb{C} \end{equation*} are linear maps such that \underline{coassociativity} (<a href="#J1">15</a>) and \underline{counitality} (<a href="#J2">16</a>) hold. The maps \(\Delta\) and \(\epsilon\) are called \underline{coproduct} and \underline{counit}, respectively.
-
-<b>Example 3.2:</b> If \((C,\Delta,\epsilon)\) is a coalgebra, then with the opposite coproduct \(\Delta^{cop}=S_{C,C}\circ \Delta\), one obtains the \underline{(co-)opposite coalgebra} \(C^{cop}=(C,\Delta^{cop},\epsilon)\). A coalgebra is called \underline{cocommutative} if \(\Delta^{cop}=\Delta\). \newpage \paragraph{Sweedler's sigma notation} Now we need a convenient notation system for practical computations with coalgebras. We follow the Sweedler's sigma notation. For that, we need to know the following two <i>fundamental properties</i> of the tensor-product:
-<ul>
- 	<li> If \((v_i^{(1)})_{i \in I}\) is a linearly independent collection in \(V_1\) and \((v_j^{(2)})_{j \in J}\) is a linearly independent collection in \(V_2\), then the collection \(\Big(v_i^{(1)} \otimes v_j^{(2)}\Big)_{(i,j)\in I\times J}\) is linearly independent in \(V_1 \otimes V_2\).</li>
- 	<li> If the collection \((v_i^{(1)})_{i \in I}\) spans \(V_1\) and the collection \((v_j^{(2)})_{j \in J}\) spans \(V_2\), then the collection \(\Big(v_i^{(1)} \otimes v_j^{(2)}\Big)_{(i,j)\in I\times J}\) spans the tensor product \(V_1 \otimes V_2\).</li>
-</ul>
-wherefrom it follows that if \((v_i^{(1)})_{i \in I}\) and \((v_j^{(2)})_{j \in J}\) are bases of \(V_1\) and \(V_2\) respectively, then \(\Big(v_i^{(1)} \otimes v_j^{(2)}\Big)_{(i,j)\in I\times J}\) is a basis of the tensor product \(V_1 \otimes V_2\). Specifically, if \(V_1\) and \(V_2\) are finite-dimensional, then \begin{equation*} 	dim(V_1 \otimes V_2)=dim(V_1) \otimes dim(V_2) \end{equation*}
-
-\underline{Simple tensors}: A tensor of the form \(v^{(1)} \otimes v^{(2)}\) is called a simple tensor. It could be shown (if possible and needed, this proof shall be provided in subsequent revisions of this draft) that any \(t \in V_1 \otimes V_2\) can be written as a linear combination of simple tensors \begin{equation*} 	t=\sum_{\alpha=1}^n v_{\alpha}^{(1)} \otimes v_{\alpha}^{(2)} \end{equation*} for some \(v_{\alpha}^{(1)} \in V_1\) and \(v_{\alpha}^{(2)} \in V_2\), \(\alpha=1,2,...,n\). However, it should be noted that such an <b>expression is by no means unique</b>. The <i>smallest</i> \(n\) for which it is possible to write \(t\) as a sum of simple-tensors is called the <i>rank</i> of the tensor, denoted by \(n= rank(t)\).
-Now let's come back to the coalgebra \(C\), where, due to the usual properties of the tensor product, for any \(a \in C\) we can write the coproduct of \(a\) as a linear-combination of simple tensors \begin{equation*} 	\Delta(a)=\sum_{j=1}^n a'_j \otimes a''_j \end{equation*} where, remembering the fact that \(\Delta:C \rightarrow C \otimes C\), both \(a'_j, a''_j \in C\). However, the choice of simple tensors, or the choice of \(a'_j, a''_j \in C\), or even the number \(n\) of terms are <b>not</b> unique. But it is convenient to keep this property in mind and use the notation \begin{equation*} 	\Delta(a)=\sum_{(a)} a_{(1)} \otimes a_{(2)} \end{equation*} to represent <i>any</i> of the possible expressions for \(\Delta(a) \in C \otimes C\). Similarly, when \(a \in C\), and when we write some expression involving a sum \(\sum_{(a)}\) and bilinear-dependency on the pair \((a_{(1)},a_{(2)})\), it's to be understood so that <i>any</i> linear combination of simple tensors that gives the coproduct of \(a\) could be used.
-An eg: if \(g:C \rightarrow V\) and \(h:C \rightarrow W\) are linear-maps, then
-\(\sum_{(a)}g(a_{(1)})\otimes h(a_{(2)}) \qquad \qquad\) represents \(\qquad \qquad (g\otimes h)(\Delta(a)) \in V\otimes W\).
-The opposite coproduct of Example 3.2 is written in this notation as \begin{equation*} 	\Delta^{cop}(a)=S_{C,C}(\Delta(a))=\sum_{(a)} a_{(2)} \otimes a_{(1)} \end{equation*} Another example is provided by the counitality axiom: \begin{equation*} 	\sum_{(a)} \epsilon(a_{(1)})a_{(2)} = a = \sum_{(a)} \epsilon(a_{(2)})a_{(1)} \end{equation*} and the coassociativity axiom: \begin{equation*} 	\sum_{(a)} \sum_{(a_{(1)})} (a_{(1)})_{(1)} \otimes (a_{(1)})_{(2)} \otimes a_{(2)} = \sum_{(a)} \sum_{(a_{(2)})} a_{(1)} \otimes (a_{(2)})_{(1)} \otimes (a_{(2)})_{(2)} \end{equation*}
-
-In case if it's needed (and it might very well be needed), this paragraph shall be elucidated in upcoming revisions. \bigskip \hrule \bigskip
-
-<b>  3.3. Bialgebras </b>
-
-<b>Definition 3.4:</b> A \underline{bialgebra} is a quintuplet \(B,\mu,\Delta,\eta,\epsilon \), where \(B\) is a vector space, and \begin{equation*} 	\mu:B \otimes B \rightarrow B \qquad \Delta:B \rightarrow B \otimes B \end{equation*} \begin{equation*} 	\eta:\mathbb{C} \rightarrow B \qquad \epsilon:B \rightarrow \mathbb{C} \end{equation*} are linear maps so that \(B,\mu,\eta \) is an algebra, \(B,\Delta,\epsilon \) is a coalgebra, and the following further axioms hold:
-\(\Delta \circ \mu = (\mu \otimes \mu) \circ (id_B \otimes S_{B,B} \otimes id_B) \circ (\Delta \otimes \Delta) \)
-\(\Delta \circ \eta = \eta \otimes \eta \)
-\(\epsilon \circ \mu = \epsilon \otimes \epsilon \)
-\(\epsilon \circ \eta = id_{\mathbb{C}} \) \newpage These are visualized as follows:
-\(\Delta \circ \mu = (\mu \otimes \mu) \circ (id_B \otimes S_{B,B} \otimes id_B) \circ (\Delta \otimes \Delta) \) as
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=huge,column sep=normal} &amp; B \arrow{dr}{\Delta} \\ B \otimes B \arrow{ur}{\mu} \arrow{d}{\Delta \otimes \Delta} &amp; &amp; B \otimes B \\ B \otimes B \otimes B \otimes B \arrow{rr}{id_B \otimes S_{B,B} \otimes id_B} &amp; &amp; B \otimes B \otimes B \otimes B \arrow{u}{\mu \otimes \mu} \end{tikzcd} &amp;fg=000000$</p>
-\(\Delta \circ \eta = \eta \otimes \eta \) and \(\epsilon \circ \mu = \epsilon \otimes \epsilon \) respectively as
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=normal,column sep=normal} B \otimes B &amp; &amp; B \arrow{ll}{\Delta}\\\\ \mathbb{C} \otimes \mathbb{C} \arrow{uu}{\eta \otimes \eta} \arrow{rr} &amp; &amp; \mathbb{C} \arrow{uu}{\eta} \arrow{ll} \end{tikzcd}\qquad \nbegin{tikzcd}{row sep=normal,column sep=normal} B \otimes B \arrow{dd}{\epsilon \otimes \epsilon} \arrow{rr}{\mu} &amp; &amp; B \arrow{dd}{\epsilon}\\\\ \mathbb{C} \otimes \mathbb{C} \arrow{rr} &amp; &amp; \mathbb{C} \arrow{ll} \end{tikzcd} &amp;fg=000000$</p>
-and lastly, \(\epsilon \circ \eta = id_{\mathbb{C}} \) as
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=normal,column sep=normal} &amp; B \arrow{ddr}{\epsilon} \\\\ \mathbb{C} \arrow{uur}{\eta} \arrow{rr} &amp; &amp; \mathbb{C} \arrow{ll} \end{tikzcd} &amp;fg=000000$</p>
- In the above, we needed algebra and coalgebra structures on \(\mathbb{C}\) and on \(B \otimes B\).
-<ul>
- 	<li> The product used in the algebra structure on \(\mathbb{C}\) is just the multiplication of complex numbers, and the coalgebra structure on \(\mathbb{C}\) is such that the coproduct and counit are both identity maps of \(\mathbb{C}\). From the box-shaped figures above, it can be seen that we identify \(\mathbb{C} \otimes \mathbb{C} \cong \mathbb{C}\) (for the coproduct), and as for the counit on \(\mathbb{C}\), we see that it's property must be such that it operates on \(\mathbb{C}\) and maps to \(\mathbb{C}\) itself, which is precisely what \(id_{\mathbb{C}}\) does. For the counit discussion, you no longer need to look at the box-shaped diagrams - they were needed solely for the coproduct discussion!</li>
- 	<li> The algebra structure on \(B \otimes B\) is the tensor-product of two copies of the algebra \(B\), i.e. with the product determined by \((b'\otimes b'')(b''' \otimes b'''')\). The coalgebra structure in \(B \otimes B\) is the tensor-product of two copies of the coalgebra \(B\), i.e. when \(\Delta(b')=\sum b'_{(1)} \otimes b'_{(2)}\) and \(\Delta(b'')=\sum b''_{(1)} \otimes b''_{(2)}\), the coproduct of \(b'\otimes b''\) is simply \(\sum (b'_{(1)} \otimes b''_{(1)}) \otimes (b'_{(2)} \otimes b''_{(2)})\), and the counit is \(b' \otimes b'' \rightarrow \epsilon(b')\epsilon(b'')\).</li>
-</ul>
-\newpage
-
-<b>  3.4. Hopf Algebras </b>
-
-Hopf algebras have one more map in addition to those already present in bialgebras, and also one more axiom:
-
-<b>Definition 3.5:</b> A \underline{Hopf Algebra} is a sextuplet \((H,\mu,\Delta,\eta,\epsilon,\gamma)\), where \(H\) is a vector space, and
-\(\mu:H \otimes H \rightarrow H \qquad \qquad \Delta:H \rightarrow H \otimes H\)
-\(\eta: \mathbb{C} \rightarrow H \qquad \qquad \qquad \epsilon:H \rightarrow \mathbb{C}\)
-\(\gamma:H \rightarrow H\)
-are linear maps such that \((H,\mu,\Delta,\eta,\epsilon)\) is a bialgebra, and the following further axiom holds:
-<p align="center">$latex \displaystyle  	\mu \circ (\gamma \otimes id_H) \circ \Delta=\eta \circ \epsilon= \mu \circ (id_H \otimes \gamma) \circ \Delta \ \ \ \ \ (17)&amp;fg=000000$</p>
- which is precisely the formula which we wanted to get to in this summary.
-The map \(\gamma:H \rightarrow H\) is called the \underline{antipode}. The corresponding commutative diagram is:
-<p align="center">$latex \displaystyle  \nbegin{tikzcd}{row sep=normal,column sep=normal} H \otimes H \arrow{rr}{id_H \otimes \gamma} &amp; &amp; H \otimes H \arrow{dd}{\mu} \\\\ H \arrow{uu}{\Delta} \arrow{r}{\epsilon} \arrow{dd}{\Delta} &amp; \mathbb{C} \arrow{r}{\eta} &amp; H \\\\ H \otimes H \arrow{rr}{\gamma \otimes id_H} &amp; &amp; H \otimes H \arrow{uu}{\mu} \end{tikzcd} &amp;fg=000000$</p>
- In the Sweedler's sigma notation, the antipode-axiom reads: \begin{equation*} 	\sum_{(a)} \gamma(a_{(1)})a_{(2)} = \epsilon(a)1_H = \sum_{(a)} a_{(1)}\gamma(a_{(2)}) \qquad \forall \quad a \in H \end{equation*} where, \(1_H=\eta(1)\) is the unit of the algebra \((H,\mu,\eta)\), and we use the usual notation for products in the algebra, namely \(ab:=\mu(a \otimes b)\).
-
-<b>4. Acknowledgements </b>
-
-Most of the material has been borrowed (notations too being the exact same) from Kalle Kyt{ö}l{ä}'s lecture notes, which are available <a href="https://math.aalto.fi/~kkytola/files_KK/lectures_files_KK/Hopf-lecture_notes.pdf">here</a>. But since we had to narrow down our goal extensively, only the most important parts have been nitpicked and a few calculational details that were otherwise implicit in the original source, have been a bit explicitly demonstrated here.
+        <h1 id="goal">Goal</h1>
+        <p>Our main goal in this article is to come to terms with the following odd-looking formula:<br><span class="math display"><em>μ</em> ∘ (<em>γ</em> ⊗ <em>i</em><em>d</em><sub><em>H</em></sub>)∘<em>Δ</em> = <em>η</em> ∘ <em>ϵ</em> = <em>μ</em> ∘ (<em>i</em><em>d</em><sub><em>H</em></sub> ⊗ <em>γ</em>)∘<em>Δ</em></span><br>The meanings of the symbols shall be clear from the contexts we look at in the course of our flow through this article. They shall be defined appropriately in due course of time.<br>The philosophy we adhere to is as follows: we keep theoretical concepts of mathematics at a minimum, so as not to deviate from our primary focus, namely getting to that formula. As such, formal definitions are kept as close as possible to where their explicit use has been made, so that the reader doesn’t need to keep turning pages in search of definitions. Even if this hasn’t always been possible, consistent references have nevertheless been made to these definitions wherever necessary in the midst of a series of logical steps.</p>
+        <h1 id="little-prelims-on-tensor-products">Little prelims on tensor products</h1>
+        <p>Here, we shall be discussing a bit about bilinear maps, and tensor products of vector spaces. Crucial for our discussion is to keep in mind the fact that the vector spaces can be over any (algebraically closed, with characteristic zero - more on these latter) field <span class="math inline">𝕂</span>, but the concept of tensor product depends on the field. For most of our purposes, we restrict <span class="math inline">𝕂</span> to <span class="math inline">ℂ</span>.</p>
+        <p><strong>Definition 2.1:</strong> Let <span class="math inline"><em>V</em><sub>1</sub></span>,<span class="math inline"><em>V</em><sub>2</sub></span>,<span class="math inline"><em>W</em></span> be vector spaces. A map <span class="math inline"><em>β</em> : <em>V</em><sub>1</sub> × <em>V</em><sub>2</sub> → <em>W</em></span> is called bilinear, if <span class="math inline">∀ <em>v</em><sub>1</sub> ∈ <em>V</em><sub>1</sub></span> the map <span class="math inline"><em>v</em><sub>2</sub> ↦ <em>β</em>(<em>v</em><sub>1</sub>, <em>v</em><sub>2</sub>)</span> is linear <span class="math inline"><em>V</em><sub>2</sub> → <em>W</em></span>, and <span class="math inline">∀ <em>v</em><sub>2</sub> ∈ <em>V</em><sub>2</sub></span> the map <span class="math inline"><em>v</em><sub>1</sub> ↦ <em>β</em>(<em>v</em><sub>1</sub>, <em>v</em><sub>2</sub>)</span> is linear <span class="math inline"><em>V</em><sub>1</sub> → <em>W</em></span>.</p>
+        <p>Multilinear maps can be defined similarly.</p>
+        <p>The tensor product is a space that helps us replace some bilinear (more generally multilinear) maps by linear maps.</p>
+        <p><strong>Definition 2.2:</strong> Let <span class="math inline"><em>V</em><sub>1</sub></span> and <span class="math inline"><em>V</em><sub>2</sub></span> be two vector spaces. A tensor product of <span class="math inline"><em>V</em><sub>1</sub></span> and <span class="math inline"><em>V</em><sub>2</sub></span> (denoted by <span class="math inline"><em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub></span>) is a vector space U together with a bilinear map <span class="math inline"><em>ϕ</em> : <em>V</em><sub>1</sub> × <em>V</em><sub>2</sub> → <em>U</em></span>, such that the following <strong>universal</strong> property holds:<br>for any bilinear map <span class="math inline"><em>β</em> : <em>V</em><sub>1</sub> × <em>V</em><sub>2</sub> → <em>W</em></span> <span class="math inline">∃</span> a <strong>unique</strong> linear map <span class="math inline">$\Bar{\beta}:U \rightarrow W$</span>, such that the following diagram is commutative, i.e. <span class="math inline">$\beta = \Bar{\beta} \circ \phi$</span>.</p>
+
+        <p>A little discussion on the uniqueness property (up to canonical isomorphism) of the bilinear map <span class="math inline"><em>ϕ</em></span> naturally follows.<br>Let’s define, for sake of our argument, another possible tensor product <span class="math inline"><em>U</em>′</span> with a bilinear map <span class="math inline"><em>ϕ</em>′:<em>V</em><sub>1</sub> × <em>V</em><sub>2</sub> → <em>U</em>′</span>. Then, the universality of <span class="math inline"><em>U</em></span> gives a linear map <span class="math inline">$\Bar{\phi '}:U \rightarrow U'$</span> such that <span class="math inline">$\phi '=\Bar{\phi '}\circ\phi$</span>. These maps have been shown with blue arrows in the above commutative diagram. Similarly, the universality of <span class="math inline"><em>U</em>′</span> gives a linear map <span class="math inline">$\Bar{\phi}:U' \rightarrow U$</span> such that <span class="math inline">$\phi=\Bar{\phi}\circ\phi '$</span>. The map <span class="math inline">$\Bar{\phi}$</span> has been shown in red.<br>Thus we have the following:<br><span class="math display">$$id_U \circ \phi=\phi=\Bar{\phi}\circ\phi '=\Bar{\phi}\circ\Bar{\phi '}\circ\phi$$</span><br>and,<br><span class="math display">$$id_{U'}\circ\phi'=\phi'=\Bar{\phi'}\circ\phi=\Bar{\phi'}\circ\Bar{\phi}\circ\phi '$$</span><br>We see that there are two ways to factorise the maps <span class="math inline"><em>ϕ</em></span> and <span class="math inline"><em>ϕ</em>′</span>. Thus, by the uniqueness requirement in the universality of these maps, we must have <span class="math inline">$id_U=\Bar{\phi}\circ\Bar{\phi '}$</span>, and <span class="math inline">$id_{U'}=\Bar{\phi '}\circ\Bar{\phi}$</span>. Hence, we conclude that <span class="math inline">$\Bar{\phi}$</span> and <span class="math inline">$\Bar{\phi '}$</span> are isomorphisms (and inverses of each other).<br><strong>Caveat:</strong> Note that usually when we talk about homomorphisms and isomorphisms, we assume the existence of structures like groups, rings etc which are sets endowed with some operation(s) between their constituent elements. In these contexts, the morphisms we talk about as existing between two such structures have to do with whether or not the relations defined in one of the structures have a natural correspondence with that in the other one (a bijective correspondence leads to isomorphism, in general it is a homomorphism). In such cases, we say something akin to “these structures are homo/iso-morphic to each other”. However, to say that “two themselves are isomorphic to each other”, one essentially implies isomorphism in a <em>category</em> of maps. For an elucidated version of this point, see <a href="https://math.stackexchange.com/questions/51550/what-does-a-map-is-isomorphic-to-another-map-mean">this link</a>.<br>So now that we know that the tensor product is unique (up to canonical isomorphism), we use the following notations:<br><span class="math display"><em>U</em> = <em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub></span><br>and<br><span class="math display">$$V_1 \times V_2 \ni (v_1,v_2) \xmapsto{\phi} v_1 \otimes v_2 \in V_1 \otimes V_2$$</span></p>
+        <h1 id="algebras-coalgebras-bialgebras-and-hopf-algebras">Algebras, coalgebras, bialgebras and Hopf algebras</h1>
+        <h2 id="algebras">Algebras</h2>
+        <h3 id="definition---form-1">Definition - Form 1</h3>
+        <p>Now let’s study the most basic algebraic structure which shall be relevant for our understanding of Hopf algebras, and in particular, the formula we encountered at the very beginning.<br>As per standard definition, an algebra (for us, it is an <em>associative</em>, <em>unital</em> algebra) is a triplet <span class="math inline">(<em>A</em>, *, 1<sub><em>A</em></sub>)</span>, <span class="math inline"><em>A</em></span> being a vector space (over a field <span class="math inline">𝕂</span>; usually <span class="math inline">𝕂 = ℂ</span>), is a binary operation on <span class="math inline"><em>A</em></span>.<br><span class="math display">* : <em>A</em> × <em>A</em> → <em>A</em>    (<em>a</em>, <em>b</em>)↦<em>a</em> * <em>b</em></span><br>is called the <strong>product</strong> or <em>multiplication</em>, and <span class="math inline">1<sub><em>A</em></sub></span> is an element of A, the <strong>unit</strong> such that the following hold:<br>: the map <span class="math inline">:<em>A</em> × <em>A</em> → <em>A</em></span> is bilinear<br>: <span class="math inline"><em>a</em><sub>1</sub> * (<em>a</em><sub>2</sub> * <em>a</em><sub>3</sub>)=(<em>a</em><sub>1</sub> * <em>a</em><sub>2</sub>)*<em>a</em><sub>3</sub>  ∀ <em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, <em>a</em><sub>3</sub> ∈ <em>A</em></span><br>: <span class="math inline">∀ <em>a</em> ∈ <em>A</em></span> we have <span class="math inline"><em>a</em> * 1<sub><em>A</em></sub> = <em>a</em> = 1<sub><em>A</em></sub> * <em>a</em></span><br>From now on, unless stated otherwise, we shall take for granted <span class="math inline"><em>a</em><em>b</em> := <em>a</em> * <em>b</em></span>. If <span class="math inline"><em>a</em><em>b</em> = <em>b</em><em>a</em> ∀ <em>a</em>, <em>b</em> ∈ <em>A</em></span> we call it a <em>commutative</em> algebra. Also, we shall usually abbreviate the triplet <span class="math inline">(<em>A</em>, *, 1<sub><em>A</em></sub>)</span> representing an algebra with simply <span class="math inline"><em>A</em></span>.<br>The notions of left and right inverses are as usual, and an element of the algebra <span class="math inline"><em>a</em> ∈ <em>A</em></span> is said to be <strong>invertible</strong> if it has left and right inverses, in which case the two must be equal to each other, and we essentially talk of just <em>the</em> inverse in such a scenario. Just to show this, let <span class="math inline"><em>a</em>′,<em>a</em>″</span> be the left- and right-inverses of <span class="math inline"><em>a</em></span> respectively. Thus,<br><span class="math display"><em>a</em>″=1<sub><em>A</em></sub> * <em>a</em>″=(<em>a</em>′*<em>a</em>)*<em>a</em>″=<em>a</em>′*(<em>a</em> * <em>a</em>″) = <em>a</em>′*1<sub><em>A</em></sub> = <em>a</em>′</span><br>and we denote by <span class="math inline"><em>a</em><sup>−1</sup></span> the (left <em>(</em>and) right) inverse of a.</p>
+        <h3 id="definition---form-2">Definition - Form 2</h3>
+        <p>Now this is where the novelty starts exhibiting itself.</p>
+        <p>In the course of our calculations we shall at times encounter the following “tensor flip”, so a heads-up is as follows: for <span class="math inline"><em>V</em></span> and <span class="math inline"><em>W</em></span> vector-spaces, let <span class="math inline"><em>S</em><sub><em>V</em>, <em>W</em></sub></span> denote the linear map that switches the components-<br><span class="math display"><em>S</em><sub><em>V</em>, <em>W</em></sub> : <em>V</em> ⊗ <em>W</em> → <em>W</em> ⊗ <em>V</em></span><br>or equivalently,<br><span class="math display"><em>S</em><sub><em>V</em>, <em>W</em></sub>(<em>v</em> ⊗ <em>w</em>)=<em>w</em> ⊗ <em>v</em>   ∀ <em>v</em> ∈ <em>V</em>, <em>w</em> ∈ <em>W</em></span><br>Now here’s the catch: owing to the bilinearity axiom for algebras, we can factorise the through <span class="math inline"><em>A</em> ⊗ <em>A</em></span>, i.e <span class="math inline">∃</span> a linear map <span class="math inline"><em>μ</em> : <em>A</em> ⊗ <em>A</em> → <em>A</em></span> such that<br><span class="math display"><em>μ</em>(<em>a</em> ⊗ <em>b</em>)=<em>a</em><em>b</em>  ∀ <em>a</em>, <em>b</em> ∈ <em>A</em></span><br>We can confirm this via the commutative diagram we drew earlier, which we draw again below, but with the suitable symbols for this context (for the bilinear map leading from <span class="math inline"><em>A</em> × <em>A</em></span> to <span class="math inline"><em>A</em> ⊗ <em>A</em></span> we leave the label <span class="math inline"><em>ϕ</em></span> as it is):<br><span class="math display"></span></p>
+        <p>and, we represent the via the linear map<br><span class="math display"><em>η</em> : ℂ → <em>A</em>  <em>λ</em> ↦ <em>λ</em>1<sub><em>A</em></sub></span><br>Thus, the axioms of associativity and unitality then read<br><span class="math display">$${\label{H1}}<br>\mu \circ (\mu \otimes id_A) = \mu \circ (id_A \otimes \mu)$$</span></p>
+        <p><span class="math display">$${\label{H2}}<br>\mu \circ (\eta \otimes id_A) =id_A= \mu \circ (id_A \otimes \eta)$$</span><br>To make sense of the above equations, we now give the following definition (as promised, this definition has been kept close to its explicit application, which we would look at a few moments later):</p>
+        <p><strong>Definition 3.1:</strong> When <span class="math inline"><em>f</em> : <em>V</em><sub>1</sub> → <em>W</em><sub>1</sub></span> and <span class="math inline"><em>g</em> : <em>V</em><sub>2</sub> → <em>W</em><sub>2</sub></span> are linear maps, then <span class="math inline">∃</span> a linear map<br><span class="math display">(<em>f</em> ⊗ <em>g</em>):<em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub> → <em>W</em><sub>1</sub> ⊗ <em>W</em><sub>2</sub></span><br>defined by the condition<br><span class="math display">(<em>f</em> ⊗ <em>g</em>)(<em>v</em><sub>1</sub> ⊗ <em>v</em><sub>2</sub>)=<em>f</em>(<em>v</em><sub>1</sub>)⊗<em>g</em>(<em>v</em><sub>2</sub>)  ∀ <em>v</em><sub>1</sub> ∈ <em>V</em><sub>1</sub>, <em>v</em><sub>2</sub> ∈ <em>V</em><sub>2</sub></span><br>In order to make sense of ([H1]) and ([H2]), we take 3 elements <span class="math inline"><em>a</em>, <em>b</em>, <em>c</em> ∈ <em>A</em></span>. Let’s proceed with ([H1]) first.<br>On the LHS, we have a function composition of <span class="math inline"><em>μ</em></span> with <span class="math inline"><em>μ</em> ⊗ <em>i</em><em>d</em><sub><em>A</em></sub></span>. Remembering the fact that <span class="math inline"><em>μ</em></span> acts on <span class="math inline"><em>A</em> ⊗ <em>A</em></span>, it can be deduced that the structure of the expression on which the LHS operates in terms of the generic elements <span class="math inline"><em>a</em>, <em>b</em>, <em>c</em> ∈ <em>A</em></span> is <span class="math inline">(<em>a</em> ⊗ <em>b</em>)⊗<em>c</em></span> (which corresponds to the domain structure <span class="math inline">(<em>A</em> ⊗ <em>A</em>)⊗<em>A</em></span>). Thus, as per Definition 3.1, we have:<br><span class="math display">$${\label{H3}}<br>(\mu \otimes id_A)((a \otimes b) \otimes c) = (\mu(a \otimes b))\otimes id_A(c)=ab \otimes c$$</span><br>and then,<br><span class="math display">$${\label{H4}}<br>\mu(ab \otimes c) = abc$$</span><br>On the RHS, from similar arguments as above (namely, the fact that <span class="math inline"><em>μ</em></span>’s domain of operation is <span class="math inline"><em>A</em> ⊗ <em>A</em></span>), we can deduce the operand structure as <span class="math inline"><em>a</em> ⊗ (<em>b</em> ⊗ <em>c</em>)</span> (which corresponds to the domain structure <span class="math inline"><em>A</em> ⊗ (<em>A</em> ⊗ <em>A</em>)</span>). Therefore,<br><span class="math display">$${\label{H5}}<br>(id_A \otimes \mu)(a \otimes (b \otimes c)) = id_A(a) \otimes (\mu(b \otimes c))=a \otimes bc$$</span><br>and then,<br><span class="math display">$${\label{H6}}<br>\mu(a \otimes bc) = abc$$</span><br>which agrees with the result of ([H4]).</p>
+        <p>So this is how the associative rule is to be interpreted when we are talking in terms of map compositions and their tensor-products. As a further example, we shall do the same in order to ascertain unitality as given in ([H2]).<br>Keeping in mind how the map <span class="math inline"><em>η</em></span> works, we have the operand structure for the LHS in ([H2]) as <span class="math inline"><em>λ</em> ⊗ <em>a</em></span>, where <span class="math inline"><em>λ</em> ∈ ℂ, <em>a</em> ∈ <em>A</em></span>, which thus corresponds to the domain structure <span class="math inline">ℂ ⊗ <em>A</em></span>. It gives us:<br><span class="math display">$${\label{H7}}<br>(\eta \otimes id_A)(\lambda \otimes a)=\eta(\lambda)\otimes id_A(a)=\lambda 1_A \otimes a$$</span><br>and similarly, we see that the operand structure for RHS ought to be <span class="math inline"><em>a</em> ⊗ <em>λ</em></span>, corresponding to the domain structure <span class="math inline"><em>A</em> ⊗ ℂ</span>. Thus we get:<br><span class="math display">$${\label{H8}}<br>(id_A \otimes \eta)(a \otimes \lambda)=id_A(a) \otimes \eta(\lambda)= a \otimes \lambda 1_A$$</span><br>For the results of both ([H7]) and ([H8]) there’s another <span class="math inline"><em>μ</em></span> waiting to act on them, whence the former leads to <span class="math inline"><em>μ</em>(<em>λ</em>1<sub><em>A</em></sub> ⊗ <em>a</em>)=<em>λ</em><em>μ</em>(1<sub><em>A</em></sub> ⊗ <em>a</em>)=<em>λ</em>(1<sub><em>A</em></sub> * <em>a</em>)=<em>λ</em><em>a</em></span>, and the latter to <span class="math inline"><em>μ</em>(<em>a</em> ⊗ <em>λ</em>1<sub><em>A</em></sub>)=<em>λ</em><em>μ</em>(<em>a</em> ⊗ 1<sub><em>A</em></sub>)=<em>λ</em>(<em>a</em> * 1<sub><em>A</em></sub>)=<em>λ</em><em>a</em></span>. For the particular case <span class="math inline"><em>λ</em> = 1</span>, we can discern the unitality property.</p>
+        <p>Thus, ([H1]) expresses the equality of two maps <span class="math inline"><em>A</em> ⊗ <em>A</em> ⊗ <em>A</em>&nbsp; → <em>A</em></span>, when we make the usual identifications<br><span class="math display">(<em>A</em> ⊗ <em>A</em>)⊗<em>A</em> ≅ <em>A</em> ⊗ <em>A</em> ⊗ <em>A</em> ≅ <em>A</em> ⊗ (<em>A</em> ⊗ <em>A</em>)</span><br>and ([H2]) expresses the equality of two maps <span class="math inline"><em>A</em> → <em>A</em></span>, when we make the usual identifications<br><span class="math display">ℂ ⊗ <em>A</em> ≅ <em>A</em> ≅ <em>A</em> ⊗ ℂ</span></p>
+        <p>Thus, we have the following new defintion (equivalent to the previous “standard” definition) for an algebra:<br><strong>Definition 3.2</strong>: An (associative unital) algebra is a triplet <span class="math inline">(<em>A</em>, <em>μ</em>, <em>η</em>)</span>, where <span class="math inline"><em>A</em></span> is a vector space, and<br><span class="math display"><em>μ</em> : <em>A</em> ⊗ <em>A</em> → <em>A</em>  <em>η</em> : ℂ → <em>A</em></span><br>are linear maps, such that ([H1]) and ([H2]) hold.</p>
+        <p>We can express associativity and unitality through the following commutative diagrams:<br>associativity by<br><span class="math display"></span></p>
+        <p>and unitality by<br><span class="math display"></span></p>
+        <p></p>
+        <p><strong>Example 3.1:</strong> If <span class="math inline">(<em>A</em>, <em>μ</em>, <em>η</em>)</span> is an algebra, then setting <span class="math inline"><em>μ</em><sup><em>o</em><em>p</em></sup> = <em>μ</em> ∘ <em>S</em><sub><em>A</em>, <em>A</em></sub></span>, i.e. <span class="math inline"><em>μ</em><sup><em>o</em><em>p</em></sup>(<em>a</em> ⊗ <em>b</em>)=<em>b</em><em>a</em></span>, one gets the <span class="math inline"><em>A</em><sup><em>o</em><em>p</em></sup> = (<em>A</em>, <em>μ</em><sup><em>o</em><em>p</em></sup>, <em>η</em>)</span>. An algebra is called if <span class="math inline"><em>μ</em><sup><em>o</em><em>p</em></sup> = <em>μ</em></span>.</p>
+        <h2 id="coalgebras">Coalgebras</h2>
+        <p>A coalgebra <span class="math inline"><em>C</em></span> is defined by reversing all arrows in the commutative diagrams that define algebras.<br>That is, we impose a condition of coassociativity:<br><span class="math display"></span></p>
+        <p>and counitality:<br><span class="math display"></span></p>
+        <p></p>
+        <p>These axioms can be written as:<br><span class="math display">$${\label{J1}}<br>(\Delta \otimes id_C) \circ \Delta = (id_C \otimes \Delta) \circ \Delta$$</span></p>
+        <p><span class="math display">$${\label{J2}}<br>(\epsilon \otimes id_C) \circ \Delta = id_C = (id_C \otimes \epsilon) \circ \Delta$$</span><br>which must be understood as we did before in the case of algebras, going through an explicit demonstration.<br><strong>Definition 3.3:</strong> A is a triplet <span class="math inline">(<em>C</em>, <em>Δ</em>, <em>ϵ</em>)</span>, where <span class="math inline"><em>C</em></span> is a vector space, and<br><span class="math display"><em>Δ</em> : <em>C</em> → <em>C</em> ⊗ <em>C</em>  <em>ϵ</em> : <em>C</em> → ℂ</span><br>are linear maps such that ([J1]) and ([J2]) hold. The maps <span class="math inline"><em>Δ</em></span> and <span class="math inline"><em>ϵ</em></span> are called and , respectively.</p>
+        <p><strong>Example 3.2:</strong> If <span class="math inline">(<em>C</em>, <em>Δ</em>, <em>ϵ</em>)</span> is a coalgebra, then with the opposite coproduct <span class="math inline"><em>Δ</em><sup><em>c</em><em>o</em><em>p</em></sup> = <em>S</em><sub><em>C</em>, <em>C</em></sub> ∘ <em>Δ</em></span>, one obtains the <span class="math inline"><em>C</em><sup><em>c</em><em>o</em><em>p</em></sup> = (<em>C</em>, <em>Δ</em><sup><em>c</em><em>o</em><em>p</em></sup>, <em>ϵ</em>)</span>. A coalgebra is called if <span class="math inline"><em>Δ</em><sup><em>c</em><em>o</em><em>p</em></sup> = <em>Δ</em></span>.</p>
+        <h4 id="sweedlers-sigma-notation">Sweedler’s sigma notation</h4>
+        <p>Now we need a convenient notation system for practical computations with coalgebras. We follow the Sweedler’s sigma notation. For that, we need to know the following two <em>fundamental properties</em> of the tensor-product:</p>
+        <ul>
+            <li>If <span class="math inline">(<em>v</em><sub><em>i</em></sub><sup>(1)</sup>)<sub><em>i</em> ∈ <em>I</em></sub></span> is a linearly independent collection in <span class="math inline"><em>V</em><sub>1</sub></span> and <span class="math inline">(<em>v</em><sub><em>j</em></sub><sup>(2)</sup>)<sub><em>j</em> ∈ <em>J</em></sub></span> is a linearly independent collection in <span class="math inline"><em>V</em><sub>2</sub></span>, then the collection <span class="math inline">(<em>v</em><sub><em>i</em></sub><sup>(1)</sup> ⊗ <em>v</em><sub><em>j</em></sub><sup>(2)</sup>)<sub>(<em>i</em>, <em>j</em>)∈<em>I</em> × <em>J</em></sub></span> is linearly independent in <span class="math inline"><em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub></span>.</li>
+            <li>If the collection <span class="math inline">(<em>v</em><sub><em>i</em></sub><sup>(1)</sup>)<sub><em>i</em> ∈ <em>I</em></sub></span> spans <span class="math inline"><em>V</em><sub>1</sub></span> and the collection <span class="math inline">(<em>v</em><sub><em>j</em></sub><sup>(2)</sup>)<sub><em>j</em> ∈ <em>J</em></sub></span> spans <span class="math inline"><em>V</em><sub>2</sub></span>, then the collection <span class="math inline">(<em>v</em><sub><em>i</em></sub><sup>(1)</sup> ⊗ <em>v</em><sub><em>j</em></sub><sup>(2)</sup>)<sub>(<em>i</em>, <em>j</em>)∈<em>I</em> × <em>J</em></sub></span> spans the tensor product <span class="math inline"><em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub></span>.</li>
+        </ul>
+        <p>wherefrom it follows that if <span class="math inline">(<em>v</em><sub><em>i</em></sub><sup>(1)</sup>)<sub><em>i</em> ∈ <em>I</em></sub></span> and <span class="math inline">(<em>v</em><sub><em>j</em></sub><sup>(2)</sup>)<sub><em>j</em> ∈ <em>J</em></sub></span> are bases of <span class="math inline"><em>V</em><sub>1</sub></span> and <span class="math inline"><em>V</em><sub>2</sub></span> respectively, then <span class="math inline">(<em>v</em><sub><em>i</em></sub><sup>(1)</sup> ⊗ <em>v</em><sub><em>j</em></sub><sup>(2)</sup>)<sub>(<em>i</em>, <em>j</em>)∈<em>I</em> × <em>J</em></sub></span> is a basis of the tensor product <span class="math inline"><em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub></span>. Specifically, if <span class="math inline"><em>V</em><sub>1</sub></span> and <span class="math inline"><em>V</em><sub>2</sub></span> are finite-dimensional, then<br><span class="math display"><em>d</em><em>i</em><em>m</em>(<em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub>)=<em>d</em><em>i</em><em>m</em>(<em>V</em><sub>1</sub>)⊗<em>d</em><em>i</em><em>m</em>(<em>V</em><sub>2</sub>)</span></p>
+        <p>: A tensor of the form <span class="math inline"><em>v</em><sup>(1)</sup> ⊗ <em>v</em><sup>(2)</sup></span> is called a simple tensor. It could be shown (if possible and needed, this proof shall be provided in subsequent revisions of this draft) that any <span class="math inline"><em>t</em> ∈ <em>V</em><sub>1</sub> ⊗ <em>V</em><sub>2</sub></span> can be written as a linear combination of simple tensors<br><span class="math display">$$t=\sum_{\alpha=1}^n v_{\alpha}^{(1)} \otimes v_{\alpha}^{(2)}$$</span><br>for some <span class="math inline"><em>v</em><sub><em>α</em></sub><sup>(1)</sup> ∈ <em>V</em><sub>1</sub></span> and <span class="math inline"><em>v</em><sub><em>α</em></sub><sup>(2)</sup> ∈ <em>V</em><sub>2</sub></span>, <span class="math inline"><em>α</em> = 1, 2, ..., <em>n</em></span>. However, it should be noted that such an <strong>expression is by no means unique</strong>. The <em>smallest</em> <span class="math inline"><em>n</em></span> for which it is possible to write <span class="math inline"><em>t</em></span> as a sum of simple-tensors is called the <em>rank</em> of the tensor, denoted by <span class="math inline"><em>n</em> = <em>r</em><em>a</em><em>n</em><em>k</em>(<em>t</em>)</span>.<br>Now let’s come back to the coalgebra <span class="math inline"><em>C</em></span>, where, due to the usual properties of the tensor product, for any <span class="math inline"><em>a</em> ∈ <em>C</em></span> we can write the coproduct of <span class="math inline"><em>a</em></span> as a linear-combination of simple tensors<br><span class="math display">$$\Delta(a)=\sum_{j=1}^n a'_j \otimes a''_j$$</span><br>where, remembering the fact that <span class="math inline"><em>Δ</em> : <em>C</em> → <em>C</em> ⊗ <em>C</em></span>, both <span class="math inline"><em>a</em>′<sub><em>j</em></sub>, <em>a</em>″<sub><em>j</em></sub> ∈ <em>C</em></span>. However, the choice of simple tensors, or the choice of <span class="math inline"><em>a</em>′<sub><em>j</em></sub>, <em>a</em>″<sub><em>j</em></sub> ∈ <em>C</em></span>, or even the number <span class="math inline"><em>n</em></span> of terms are <strong>not</strong> unique. But it is convenient to keep this property in mind and use the notation<br><span class="math display"><em>Δ</em>(<em>a</em>)=∑<sub>(<em>a</em>)</sub><em>a</em><sub>(1)</sub> ⊗ <em>a</em><sub>(2)</sub></span><br>to represent <em>any</em> of the possible expressions for <span class="math inline"><em>Δ</em>(<em>a</em>)∈<em>C</em> ⊗ <em>C</em></span>. Similarly, when <span class="math inline"><em>a</em> ∈ <em>C</em></span>, and when we write some expression involving a sum <span class="math inline">∑<sub>(<em>a</em>)</sub></span> and bilinear-dependency on the pair <span class="math inline">(<em>a</em><sub>(1)</sub>, <em>a</em><sub>(2)</sub>)</span>, it’s to be understood so that <em>any</em> linear combination of simple tensors that gives the coproduct of <span class="math inline"><em>a</em></span> could be used.<br>An eg: if <span class="math inline"><em>g</em> : <em>C</em> → <em>V</em></span> and <span class="math inline"><em>h</em> : <em>C</em> → <em>W</em></span> are linear-maps, then<br><span class="math inline">∑<sub>(<em>a</em>)</sub><em>g</em>(<em>a</em><sub>(1)</sub>)⊗<em>h</em>(<em>a</em><sub>(2)</sub>)    </span> represents <span class="math inline">    (<em>g</em> ⊗ <em>h</em>)(<em>Δ</em>(<em>a</em>)) ∈ <em>V</em> ⊗ <em>W</em></span>.<br>The opposite coproduct of Example 3.2 is written in this notation as<br><span class="math display"><em>Δ</em><sup><em>c</em><em>o</em><em>p</em></sup>(<em>a</em>)=<em>S</em><sub><em>C</em>, <em>C</em></sub>(<em>Δ</em>(<em>a</em>)) = ∑<sub>(<em>a</em>)</sub><em>a</em><sub>(2)</sub> ⊗ <em>a</em><sub>(1)</sub></span><br>Another example is provided by the counitality axiom:<br><span class="math display">∑<sub>(<em>a</em>)</sub><em>ϵ</em>(<em>a</em><sub>(1)</sub>)<em>a</em><sub>(2)</sub> = <em>a</em> = ∑<sub>(<em>a</em>)</sub><em>ϵ</em>(<em>a</em><sub>(2)</sub>)<em>a</em><sub>(1)</sub></span><br>and the coassociativity axiom:<br><span class="math display">∑<sub>(<em>a</em>)</sub>∑<sub>(<em>a</em><sub>(1)</sub>)</sub>(<em>a</em><sub>(1)</sub>)<sub>(1)</sub> ⊗ (<em>a</em><sub>(1)</sub>)<sub>(2)</sub> ⊗ <em>a</em><sub>(2)</sub> = ∑<sub>(<em>a</em>)</sub>∑<sub>(<em>a</em><sub>(2)</sub>)</sub><em>a</em><sub>(1)</sub> ⊗ (<em>a</em><sub>(2)</sub>)<sub>(1)</sub> ⊗ (<em>a</em><sub>(2)</sub>)<sub>(2)</sub></span></p>
+        <p>In case if it’s needed (and it might very well be needed), this paragraph shall be elucidated in upcoming revisions.</p>
+        <hr>
+        <h2 id="bialgebras">Bialgebras</h2>
+        <p><strong>Definition 3.4:</strong> A is a quintuplet <span class="math inline"><em>B</em>, <em>μ</em>, <em>Δ</em>, <em>η</em>, <em>ϵ</em></span>, where <span class="math inline"><em>B</em></span> is a vector space, and<br><span class="math display"><em>μ</em> : <em>B</em> ⊗ <em>B</em> → <em>B</em>  <em>Δ</em> : <em>B</em> → <em>B</em> ⊗ <em>B</em></span></p>
+        <p><span class="math display"><em>η</em> : ℂ → <em>B</em>  <em>ϵ</em> : <em>B</em> → ℂ</span><br>are linear maps so that <span class="math inline"><em>B</em>, <em>μ</em>, <em>η</em></span> is an algebra, <span class="math inline"><em>B</em>, <em>Δ</em>, <em>ϵ</em></span> is a coalgebra, and the following further axioms hold:<br><span class="math inline"><em>Δ</em> ∘ <em>μ</em> = (<em>μ</em> ⊗ <em>μ</em>)∘(<em>i</em><em>d</em><sub><em>B</em></sub> ⊗ <em>S</em><sub><em>B</em>, <em>B</em></sub> ⊗ <em>i</em><em>d</em><sub><em>B</em></sub>)∘(<em>Δ</em> ⊗ <em>Δ</em>)</span><br><span class="math inline"><em>Δ</em> ∘ <em>η</em> = <em>η</em> ⊗ <em>η</em></span><br><span class="math inline"><em>ϵ</em> ∘ <em>μ</em> = <em>ϵ</em> ⊗ <em>ϵ</em></span><br><span class="math inline"><em>ϵ</em> ∘ <em>η</em> = <em>i</em><em>d</em><sub>ℂ</sub></span></p>
+        <p>These are visualized as follows:<br><span class="math inline"><em>Δ</em> ∘ <em>μ</em> = (<em>μ</em> ⊗ <em>μ</em>)∘(<em>i</em><em>d</em><sub><em>B</em></sub> ⊗ <em>S</em><sub><em>B</em>, <em>B</em></sub> ⊗ <em>i</em><em>d</em><sub><em>B</em></sub>)∘(<em>Δ</em> ⊗ <em>Δ</em>)</span> as</p>
+        <p><span class="math display"></span></p>
+
+        <p></p>
+        <p><span class="math inline"><em>Δ</em> ∘ <em>η</em> = <em>η</em> ⊗ <em>η</em></span> and <span class="math inline"><em>ϵ</em> ∘ <em>μ</em> = <em>ϵ</em> ⊗ <em>ϵ</em></span> respectively as</p>
+        <p><span class="math display"></span></p>
+        <p></p>
+        <p>and lastly, <span class="math inline"><em>ϵ</em> ∘ <em>η</em> = <em>i</em><em>d</em><sub>ℂ</sub></span> as</p>
+        <p><span class="math display"></span></p>
+
+        <p></p>
+        <p>In the above, we needed algebra and coalgebra structures on <span class="math inline">ℂ</span> and on <span class="math inline"><em>B</em> ⊗ <em>B</em></span>.</p>
+        <ul>
+            <li>The product used in the algebra structure on <span class="math inline">ℂ</span> is just the multiplication of complex numbers, and the coalgebra structure on <span class="math inline">ℂ</span> is such that the coproduct and counit are both identity maps of <span class="math inline">ℂ</span>. From the box-shaped figures above, it can be seen that we identify <span class="math inline">ℂ ⊗ ℂ ≅ ℂ</span> (for the coproduct), and as for the counit on <span class="math inline">ℂ</span>, we see that it’s property must be such that it operates on <span class="math inline">ℂ</span> and maps to <span class="math inline">ℂ</span> itself, which is precisely what <span class="math inline"><em>i</em><em>d</em><sub>ℂ</sub></span> does. For the counit discussion, you no longer need to look at the box-shaped diagrams - they were needed solely for the coproduct discussion!</li>
+            <li>The algebra structure on <span class="math inline"><em>B</em> ⊗ <em>B</em></span> is the tensor-product of two copies of the algebra <span class="math inline"><em>B</em></span>, i.e. with the product determined by <span class="math inline">(<em>b</em>′⊗<em>b</em>″)(<em>b</em>‴⊗<em>b</em>⁗)</span>. The coalgebra structure in <span class="math inline"><em>B</em> ⊗ <em>B</em></span> is the tensor-product of two copies of the coalgebra <span class="math inline"><em>B</em></span>, i.e. when <span class="math inline"><em>Δ</em>(<em>b</em>′) = ∑<em>b</em>′<sub>(1)</sub> ⊗ <em>b</em>′<sub>(2)</sub></span> and <span class="math inline"><em>Δ</em>(<em>b</em>″) = ∑<em>b</em>″<sub>(1)</sub> ⊗ <em>b</em>″<sub>(2)</sub></span>, the coproduct of <span class="math inline"><em>b</em>′⊗<em>b</em>″</span> is simply <span class="math inline">∑(<em>b</em>′<sub>(1)</sub> ⊗ <em>b</em>″<sub>(1)</sub>)⊗(<em>b</em>′<sub>(2)</sub> ⊗ <em>b</em>″<sub>(2)</sub>)</span>, and the counit is <span class="math inline"><em>b</em>′⊗<em>b</em>″→<em>ϵ</em>(<em>b</em>′)<em>ϵ</em>(<em>b</em>″)</span>.</li>
+        </ul>
+        <h2 id="hopf-algebras">Hopf Algebras</h2>
+        <p>Hopf algebras have one more map in addition to those already present in bialgebras, and also one more axiom:</p>
+        <p><strong>Definition 3.5:</strong> A is a sextuplet <span class="math inline">(<em>H</em>, <em>μ</em>, <em>Δ</em>, <em>η</em>, <em>ϵ</em>, <em>γ</em>)</span>, where <span class="math inline"><em>H</em></span> is a vector space, and<br><span class="math inline"><em>μ</em> : <em>H</em> ⊗ <em>H</em> → <em>H</em>    <em>Δ</em> : <em>H</em> → <em>H</em> ⊗ <em>H</em></span><br><span class="math inline"><em>η</em> : ℂ → <em>H</em>      <em>ϵ</em> : <em>H</em> → ℂ</span><br><span class="math inline"><em>γ</em> : <em>H</em> → <em>H</em></span><br>are linear maps such that <span class="math inline">(<em>H</em>, <em>μ</em>, <em>Δ</em>, <em>η</em>, <em>ϵ</em>)</span> is a bialgebra, and the following further axiom holds:<br><span class="math display"><em>μ</em> ∘ (<em>γ</em> ⊗ <em>i</em><em>d</em><sub><em>H</em></sub>)∘<em>Δ</em> = <em>η</em> ∘ <em>ϵ</em> = <em>μ</em> ∘ (<em>i</em><em>d</em><sub><em>H</em></sub> ⊗ <em>γ</em>)∘<em>Δ</em></span><br>which is precisely the formula which we wanted to get to in this summary.<br>The map <span class="math inline"><em>γ</em> : <em>H</em> → <em>H</em></span> is called the . The corresponding commutative diagram is:<br><span class="math display"></span></p>
+        <p>In the Sweedler’s sigma notation, the antipode-axiom reads:<br><span class="math display">∑<sub>(<em>a</em>)</sub><em>γ</em>(<em>a</em><sub>(1)</sub>)<em>a</em><sub>(2)</sub> = <em>ϵ</em>(<em>a</em>)1<sub><em>H</em></sub> = ∑<sub>(<em>a</em>)</sub><em>a</em><sub>(1)</sub><em>γ</em>(<em>a</em><sub>(2)</sub>)  ∀ <em>a</em> ∈ <em>H</em></span><br>where, <span class="math inline">1<sub><em>H</em></sub> = <em>η</em>(1)</span> is the unit of the algebra <span class="math inline">(<em>H</em>, <em>μ</em>, <em>η</em>)</span>, and we use the usual notation for products in the algebra, namely <span class="math inline"><em>a</em><em>b</em> := <em>μ</em>(<em>a</em> ⊗ <em>b</em>)</span>.</p>
+        <h1 id="acknowledgements">Acknowledgements</h1>
+        <p>Most of the material has been borrowed (notations too being the exact same) from Kalle Kytölä’s lecture notes, which are available <a href="https://math.aalto.fi/~kkytola/files_KK/lectures_files_KK/Hopf-lecture_notes.pdf">here</a>. But since we had to narrow down our goal extensively, only the most important parts have been nitpicked and a few calculational details that were otherwise implicit in the original source, have been a bit explicitly demonstrated here.</p>
     </body>
 </html>
